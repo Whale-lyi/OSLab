@@ -397,7 +397,7 @@ bool checkCommand(const vector<string>& command) {
             result = false;
         }
     } else {
-        printStr("Unknown Command!\n");
+        printStr("Unknown command!\n");
         result = false;
     }
 
