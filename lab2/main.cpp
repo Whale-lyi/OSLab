@@ -165,7 +165,7 @@ int dataStartSectors = 0; // 数据区起始扇区
 bool isLSL = false;
 
 int main() {
-    FILE * fat12 = fopen("./a.img", "rb");
+    FILE * fat12 = fopen("./a2.img", "rb");
     // 读取引导扇区和根目录区, 生成目录树
     readBPB(fat12);
     readRootEntry(fat12);
@@ -545,7 +545,7 @@ void readChildEntries(FILE * fat12, FileOrDirNode * parent, int startClus) {
 int getNextCluster(FILE * fat12, int curClus) {
     int FATBase = bpb_ptr->BPB_RsvdSecCnt * bpb_ptr->BPB_BytsPerSec;
     // 使用2字节来存储FAT中的值
-    int num1 = 0, num2 = 0; // 初始化！！！！！！！
+    int num1 = 0, num2 = 0; // 初始化
     int *p1 = &num1;
     int *p2 = &num2;
     int start = curClus * 3 / 2; // 当前偶数簇对应到FAT中是从第几个字节开始, 奇数簇+1
