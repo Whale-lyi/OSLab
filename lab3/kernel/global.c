@@ -38,9 +38,14 @@ PUBLIC	irq_handler	irq_table[NR_IRQ];
 PUBLIC	system_call	sys_call_table[NR_SYS_CALL] = {sys_get_ticks};
 
 /*
- 0：正常模式
- 1：搜索模式
- 2：ESC+ENTER
+ 0: 正常模式
+ 1: 搜索模式
+ 2: ESC+ENTER
 */
 PUBLIC	int		mode;
 
+/*
+ 0: 没有按下
+ 1: 按下了
+*/
+PUBLIC	int		control;

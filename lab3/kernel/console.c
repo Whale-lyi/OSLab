@@ -39,9 +39,11 @@ PUBLIC void exit_esc(CONSOLE* p_con){
 		*(p_vmem- 2 -2 * i) = ' ';
 		*(p_vmem- 1 -2 * i) = DEFAULT_CHAR_COLOR;
 	}
-	// 把ESC前的普通输入还原为白色
+	// 把ESC前的普通输入还原为白色，Tab不变
 	for(int i = 0; i < p_con->search_start_pos * 2; i += 2){ 
-		*(u8*)(V_MEM_BASE + i + 1) = DEFAULT_CHAR_COLOR;
+		if (*(u8*)(V_MEM_BASE + i + 1) != TAB_CHAR_COLOR) {
+			*(u8*)(V_MEM_BASE + i + 1) = DEFAULT_CHAR_COLOR;
+		}
 	}
 	// 复位指针
 	p_con->cursor = p_con->search_start_pos;
@@ -86,10 +88,12 @@ PUBLIC void search(CONSOLE *p_con) {
 				break;
 			}
 		}
-		// 如果找到，标红
+		// 如果找到，标红，Tab不变
 		if (found == 1) {
 			for (j = begin; j < end; j += 2) {
-				*(u8*)(V_MEM_BASE + j + 1) = RED;
+				if (*(u8*)(V_MEM_BASE + j + 1) != TAB_CHAR_COLOR) {
+					*(u8*)(V_MEM_BASE + j + 1) = RED;
+				}
 			}
 		}
 	}
@@ -199,6 +203,8 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 		}
 		break;
 
+	case 'z':
+	case 'Z':
 	default:
 		if (p_con->cursor <
 		    p_con->original_addr + p_con->v_mem_limit - 1) {

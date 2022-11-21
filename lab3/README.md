@@ -496,5 +496,34 @@
       break;
   ```
 
-#### 2.7 附加 Ctrl + z
+#### 2.7 附加: Ctrl + z 撤销
+
+##### 2.7.1 识别 Ctrl + z
+
+- 在 `global.h, global.c` 中添加 `control` 是否被按下的定义
+
+  ```c
+  // global.h
+  extern int control; / 是否按下了control
+  
+  // global.c
+  /*
+   0: 没有按下
+   1: 按下了
+  */
+  PUBLIC	int		control;
+  ```
+
+- 在 `keyboard.c/keyboard_read()` 添加
+
+  ```c
+  // 判断 control 是否被按下
+  control = ctrl_l || ctrl_r;
+  ```
+
+- 在 `console.c/out_char()` 添加 ctrl+z 判断
+
+  
+
+  
 

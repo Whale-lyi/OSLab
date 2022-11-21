@@ -207,6 +207,9 @@ PUBLIC void keyboard_read(TTY* p_tty)
 				break;
 			}
 
+			// 判断 control 是否被按下
+			control = ctrl_l || ctrl_r;
+
 			if (make) { /* 忽略 Break Code */
 				int pad = 0;
 
