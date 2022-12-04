@@ -92,7 +92,6 @@ PUBLIC void in_process(TTY* p_tty, u32 key)
 					// 记录ESC开始时的位置
 					p_tty->p_console->search_start_pos = p_tty->p_console->cursor;
 					p_tty->p_console->pos_stack.search_start_ptr = p_tty->p_console->pos_stack.ptr;
-					// p_tty->p_console->out_char_stack.search_start_ptr = p_tty->p_console->out_char_stack.ptr;
 				} else if (mode == 1 || mode == 2) {
 					mode = 0;
 					// 清除内容

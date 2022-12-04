@@ -48,7 +48,6 @@ PUBLIC void exit_esc(CONSOLE* p_con){
 	// 复位指针
 	p_con->cursor = p_con->search_start_pos;
 	p_con->pos_stack.ptr = p_con->pos_stack.search_start_ptr;
-	// p_con->out_char_stack.ptr = p_con->out_char_stack.search_start_ptr;
 	flush(p_con); // 更新p_con，这个不能漏
 }
 
@@ -202,9 +201,7 @@ PUBLIC void out_char(CONSOLE* p_con, char ch)
 			p_con->cursor += TAB_WIDTH; // 调整光标
 		}
 		break;
-
-	case 'z':
-	case 'Z':
+		
 	default:
 		if (p_con->cursor <
 		    p_con->original_addr + p_con->v_mem_limit - 1) {

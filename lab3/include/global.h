@@ -35,4 +35,3 @@ extern	TTY		tty_table[];
 extern  CONSOLE         console_table[];
 
 extern int mode; // 标识模式
-extern int control; // 是否按下了control

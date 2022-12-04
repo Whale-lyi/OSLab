@@ -41,7 +41,7 @@
   PUBLIC int kernel_main() {
   	...
   	init_clock();
-      init_keyboard();
+    init_keyboard();
   
   	cleanScreen(); // 清屏
   
@@ -442,7 +442,9 @@
   		// 如果找到，标红
   		if (found == 1) {
   			for (j = begin; j < end; j += 2) {
-  				*(u8*)(V_MEM_BASE + j + 1) = RED;
+  				if (*(u8*)(V_MEM_BASE + j + 1) != TAB_CHAR_COLOR) {
+					  *(u8*)(V_MEM_BASE + j + 1) = RED;
+				  }
   			}
   		}
   	}
@@ -467,7 +469,9 @@
   	}
   	// 把ESC前的普通输入还原为白色
   	for(int i = 0; i < p_con->search_start_pos * 2; i += 2){ 
-  		*(u8*)(V_MEM_BASE + i + 1) = DEFAULT_CHAR_COLOR;
+  		if (*(u8*)(V_MEM_BASE + i + 1) != TAB_CHAR_COLOR) {
+			  *(u8*)(V_MEM_BASE + i + 1) = DEFAULT_CHAR_COLOR;
+		  }
   	}
   	// 复位指针
   	p_con->cursor = p_con->search_start_pos;
@@ -487,7 +491,6 @@
           // 记录ESC开始时的位置
           p_tty->p_console->search_start_pos = p_tty->p_console->cursor;
           p_tty->p_console->pos_stack.search_start_ptr = p_tty->p_console->pos_stack.ptr;
-          // p_tty->p_console->out_char_stack.search_start_ptr = p_tty->p_console->out_char_stack.ptr;
       } else if (mode == 1 || mode == 2) {
           mode = 0;
           // 清除内容
@@ -496,32 +499,6 @@
       break;
   ```
 
-#### 2.7 附加: Ctrl + z 撤销
-
-##### 2.7.1 识别 Ctrl + z
-
-- 在 `global.h, global.c` 中添加 `control` 是否被按下的定义
-
-  ```c
-  // global.h
-  extern int control; / 是否按下了control
-  
-  // global.c
-  /*
-   0: 没有按下
-   1: 按下了
-  */
-  PUBLIC	int		control;
-  ```
-
-- 在 `keyboard.c/keyboard_read()` 添加
-
-  ```c
-  // 判断 control 是否被按下
-  control = ctrl_l || ctrl_r;
-  ```
-
-- 在 `console.c/out_char()` 添加 ctrl+z 判断
 
   
 

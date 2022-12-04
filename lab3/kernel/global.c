@@ -43,9 +43,3 @@ PUBLIC	system_call	sys_call_table[NR_SYS_CALL] = {sys_get_ticks};
  2: ESC+ENTER
 */
 PUBLIC	int		mode;
-
-/*
- 0: 没有按下
- 1: 按下了
-*/
-PUBLIC	int		control;
