@@ -169,15 +169,25 @@
   	case '\b':
   		if (p_con->cursor > p_con->original_addr) {
   			// p_con->cursor--;
-  			int temp = p_con->cursor; // 当前位置
-  			p_con->cursor = pop_pos(p_con); // 光标回到上次的位置
-  			for (int i = 0; i < temp - p_con->cursor; i++) {
-  				// 两次位置之间用空格填充
-  				*(p_vmem- 2 - 2 * i) = ' ';
-  				*(p_vmem- 1 - 2 * i) = DEFAULT_CHAR_COLOR;
+  			if(mode == 0) {
+  				int temp = p_con->cursor; // 当前位置
+  				p_con->cursor = pop_pos(p_con); // 光标回到上次的位置
+  				for (int i = 0; i < temp - p_con->cursor; i++) {
+  					// 两次位置之间用空格填充
+  					*(p_vmem- 2 - 2 * i) = ' ';
+  					*(p_vmem- 1 - 2 * i) = DEFAULT_CHAR_COLOR;
+  				}
+  			} else if(mode == 1){
+  				if(p_con->cursor != p_con->search_start_pos) {
+  					int temp = p_con->cursor; // 当前位置
+  					p_con->cursor = pop_pos(p_con); // 光标回到上次的位置
+  					for (int i = 0; i < temp - p_con->cursor; i++) {
+  						// 两次位置之间用空格填充
+  						*(p_vmem- 2 - 2 * i) = ' ';
+  						*(p_vmem- 1 - 2 * i) = DEFAULT_CHAR_COLOR;
+  					}
+  				}
   			}
-  			// *(p_vmem-2) = ' ';
-  			// *(p_vmem-1) = DEFAULT_CHAR_COLOR;
   		}
   		break;
   
@@ -500,7 +510,6 @@
   ```
 
 
-  
 
-  
+
 
