@@ -135,7 +135,7 @@ void ReaderB() {
 	while (TRUE) {
 		READER(2);
 		p_proc_ready->status = 2;
-		milli_delay(TIME_SLICE);
+		sleep(TIME_SLICE);
 	}
 }
 
@@ -144,7 +144,7 @@ void ReaderC() {
 	while (TRUE) {
 		READER(3);
 		p_proc_ready->status = 2;
-		milli_delay(TIME_SLICE);
+		sleep(TIME_SLICE);
 	}
 }
 
@@ -153,7 +153,7 @@ void ReaderD() {
 	while (TRUE) {
 		READER(3);
 		p_proc_ready->status = 2;
-		milli_delay(TIME_SLICE);
+		sleep(TIME_SLICE);
 	}
 }
 
@@ -162,7 +162,7 @@ void WriterE() {
 	while (TRUE) {
 		WRITER(3);
 		p_proc_ready->status = 2;
-		milli_delay(TIME_SLICE);
+		sleep(TIME_SLICE);
 	}
 }
 
@@ -171,6 +171,6 @@ void WriterF() {
 	while (TRUE) {
 		WRITER(4);
 		p_proc_ready->status = 2;
-		milli_delay(TIME_SLICE);
+		sleep(TIME_SLICE);
 	}
 }

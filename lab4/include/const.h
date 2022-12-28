@@ -82,6 +82,6 @@
 #define MAX_READERS     2   /* 可同时读的数量 */
 #define STRATEGY        0   /* 读优先--0  写优先--1  读写公平--2 */
 
-#define TIME_SLICE      10000 /* 一个时间片长度 */
+#define TIME_SLICE      5000 /* 一个时间片长度 */
 
 #endif /* _ORANGES_CONST_H_ */
