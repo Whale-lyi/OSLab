@@ -13,7 +13,9 @@
 
 ### 2. 实现
 
-基础代码使用 Oranges/chapter6/r
+> 基础代码使用 Oranges/chapter6/r
+>
+> 若代码与说明有误差，以代码为准
 
 #### 2.1 添加进程
 
@@ -307,9 +309,9 @@
 - const.h 中定义可以同时读的读者数量、调度策略和一个时间片长度
 
   ```c
-  #define MAX_READERS     2   /* 可同时读的数量 */
+  #define MAX_READERS     2   /* 可同时读的数量 1-3 */
   #define STRATEGY        0   /* 读优先--0  写优先--1  读写公平--2 */
-  #define TIME_SLICE      5000 /* 一个时间片长度 */
+  #define TIME_SLICE      1000 /* 一个时间片长度 */
   ```
   
 - global.h 中定义各种信号量，以及记录读者写者数量的变量
@@ -420,7 +422,7 @@
 
   ```c
   void NormalA() {
-  	milli_delay(TIME_SLICE);
+  	milli_delay(200);
   	int n = 0;
   	while (TRUE) {
   		if (n++ < 20) {
@@ -448,8 +450,8 @@
   }
   
   void ReaderB() {
-  	milli_delay(TIME_SLICE);
   	while (TRUE) {
+          p_proc_ready->status = 0;
   		READER(2);
   		p_proc_ready->status = 2;
   		sleep(TIME_SLICE);
@@ -457,8 +459,8 @@
   }
   
   void ReaderC() {
-  	milli_delay(TIME_SLICE);
   	while (TRUE) {
+          p_proc_ready->status = 0;
   		READER(3);
   		p_proc_ready->status = 2;
   		sleep(TIME_SLICE);
@@ -466,8 +468,8 @@
   }
   
   void ReaderD() {
-  	milli_delay(TIME_SLICE);
   	while (TRUE) {
+          p_proc_ready->status = 0;
   		READER(3);
   		p_proc_ready->status = 2;
   		sleep(TIME_SLICE);
@@ -475,8 +477,8 @@
   }
   
   void WriterE() {
-  	milli_delay(TIME_SLICE);
   	while (TRUE) {
+          p_proc_ready->status = 0;
   		WRITER(3);
   		p_proc_ready->status = 2;
   		sleep(TIME_SLICE);
@@ -484,8 +486,8 @@
   }
   
   void WriterF() {
-  	milli_delay(TIME_SLICE);
   	while (TRUE) {
+          p_proc_ready->status = 0;
   		WRITER(4);
   		p_proc_ready->status = 2;
   		sleep(TIME_SLICE);
