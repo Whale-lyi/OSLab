@@ -33,8 +33,14 @@ PUBLIC void schedule()
 		}
 	}
 
+	// for (p = proc_table; p < proc_table + NR_TASKS; p++) {
+	// 	if (p->wake_tick > 0) {
+	// 		p->wake_tick--;
+	// 	}
+	// }
+
 	// while (!greatest_ticks) {
-	// 	for (p = proc_table; p < proc_table+NR_TASKS; p++) {
+	// 	for (p = proc_table; p < proc_table + NR_TASKS; p++) {
 	// 		if (p_proc_ready->wake_tick > current_tick || p->isBlocked == TRUE) {
 	// 			continue;
 	// 		}
@@ -68,6 +74,7 @@ PUBLIC int sys_get_ticks()
  *======================================================================*/
 PUBLIC int sys_sleep(int milli_seconds) {
 	p_proc_ready->wake_tick = get_ticks() + (milli_seconds / (1000 / HZ));
+	// p_proc_ready->wake_tick = milli_seconds / (1000 / HZ);
 	schedule();
 }
 
@@ -239,9 +246,9 @@ void READER_wf(int time_slice)
 void WRITER_wf(int time_slice)
 {
 	P(&mutex_writerNum);
-	writerNum++;
-	if (writerNum == 1)
+	if (writerNum == 0)
 		P(&readBlock); // 有写者，则禁止读
+	writerNum++;
 	V(&mutex_writerNum);
 
 	// 开始写
@@ -250,6 +257,7 @@ void WRITER_wf(int time_slice)
 	p_proc_ready->status = 1;
 	sleep(time_slice * TIME_SLICE);
 
+	V(&writeBlock);
 	// 完成写
 	P(&mutex_writerNum);
 	writerNum--;
@@ -257,7 +265,6 @@ void WRITER_wf(int time_slice)
 		V(&readBlock); // 无写者，可读
 	V(&mutex_writerNum);
 
-	V(&writeBlock);
 }
 
 /*======================================================================*

@@ -103,7 +103,7 @@ PUBLIC void cleanScreen() {
 }
 
 void NormalA() {
-	milli_delay(TIME_SLICE);
+	milli_delay(200);
 	int n = 0;
 	while (TRUE) {
 		if (n++ < 20) {
@@ -126,51 +126,62 @@ void NormalA() {
 			}
 			print("\n");
 			milli_delay(TIME_SLICE);
+			// sleep(TIME_SLICE);
 		}
 	}
 }
 
 void ReaderB() {
-	milli_delay(TIME_SLICE);
+	// milli_delay(TIME_SLICE);
 	while (TRUE) {
+		p_proc_ready->status = 0;
 		READER(2);
 		p_proc_ready->status = 2;
-		sleep(TIME_SLICE);
+		// sleep(TIME_SLICE);
+		milli_delay(TIME_SLICE);
 	}
 }
 
 void ReaderC() {
-	milli_delay(TIME_SLICE);
+	// milli_delay(TIME_SLICE);
 	while (TRUE) {
+		p_proc_ready->status = 0;
 		READER(3);
 		p_proc_ready->status = 2;
-		sleep(TIME_SLICE);
+		// sleep(TIME_SLICE);
+		milli_delay(TIME_SLICE * 1);
 	}
 }
 
 void ReaderD() {
-	milli_delay(TIME_SLICE);
+	// milli_delay(TIME_SLICE);
 	while (TRUE) {
+		p_proc_ready->status = 0;
 		READER(3);
 		p_proc_ready->status = 2;
-		sleep(TIME_SLICE);
+		// sleep(TIME_SLICE);
+		milli_delay(TIME_SLICE);
 	}
 }
 
 void WriterE() {
-	milli_delay(TIME_SLICE);
+	// milli_delay(TIME_SLICE);
 	while (TRUE) {
+		p_proc_ready->status = 0;
 		WRITER(3);
 		p_proc_ready->status = 2;
-		sleep(TIME_SLICE);
+		// sleep(TIME_SLICE);
+		milli_delay(TIME_SLICE);
 	}
 }
 
 void WriterF() {
-	milli_delay(TIME_SLICE);
+	// milli_delay(TIME_SLICE);
 	while (TRUE) {
+		p_proc_ready->status = 0;
 		WRITER(4);
 		p_proc_ready->status = 2;
-		sleep(TIME_SLICE);
+		// sleep(TIME_SLICE);
+		milli_delay(TIME_SLICE);
 	}
 }
